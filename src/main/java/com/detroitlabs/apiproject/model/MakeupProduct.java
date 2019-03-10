@@ -16,6 +16,7 @@ public class MakeupProduct{
     private String description;
     private String image_link;
     private String product_link;
+    private String product_type;
 
     @JsonProperty("name")
     public String getName() {
@@ -72,5 +73,13 @@ public class MakeupProduct{
     @JsonProperty("product_link")
     public void setProduct_link(String product_link) {
         this.product_link = product_link;
+    }
+    @JsonProperty("product_type")
+    public String getProduct_type() {
+        return product_type;
+    }
+    @JsonProperty("product_type")
+    public void setProduct_type(String product_type) {
+        this.product_type = product_type;
     }
 }
