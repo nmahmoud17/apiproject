@@ -15,4 +15,9 @@ public class MakeupService {
         //get resource at the URI and map to forecast class
     }
 
+    public MakeupRepo fetchMakeupByProductType(String producttype){
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject("http://makeup-api.herokuapp.com/api/v1/products.json?product_type="+producttype, MakeupRepo.class);
+    }
+
 }

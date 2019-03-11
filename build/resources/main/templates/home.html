@@ -7,6 +7,10 @@
     <title>Sunny Day | Home</title>
 </head>
 <body>
-    <p>The weather will go here!</p>
+<div th:each="product : ${onephoto}">
+    <img th:src="@{${product.getImage_link()}}">
+    <h3 th:text="@{${product.getBrand()}}"/>
+
+</div>
 </body>
 </html>

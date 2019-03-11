@@ -1,13 +1,19 @@
 package com.detroitlabs.apiproject.controller;
 
+import com.detroitlabs.apiproject.model.MakeupProduct;
 import com.detroitlabs.apiproject.model.MakeupRepo;
 import com.detroitlabs.apiproject.service.MakeupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+
 
 @Controller
 public class ProductController {
@@ -15,14 +21,38 @@ public class ProductController {
     @Autowired
     private MakeupService makeupService;
 
-
-    @ResponseBody
     @RequestMapping("/")
-    public String displayMakeup() {
+    public String displayMakeup(ModelMap modelMap) {
 
         MakeupRepo makeupRepo = makeupService.fetchAllMakupAPI();
-        String brand = makeupRepo.get(0).getBrand();
-        return brand;
+        modelMap.put("allproducts",makeupRepo);
+
+        List<MakeupProduct> oneProduct = new ArrayList<>();
+
+        for(MakeupProduct product: makeupRepo){
+            Collections.shuffle(makeupRepo);
+            if (oneProduct.size() <= 15){
+            oneProduct.add(product);
+            }
+        }
+        modelMap.put("onephoto",oneProduct);
+
+        return "index";
+    }
+
+    @RequestMapping("/products")
+    public String displayBrands(ModelMap modelMap){
+        MakeupRepo makeupRepo = makeupService.fetchAllMakupAPI();
+
+        List<MakeupProduct> productType = new ArrayList<>();
+        for(MakeupProduct product: makeupRepo){
+            if(!productType.contains(product.getBrand()))
+            productType.add(product);
+        }
+        modelMap.put("productType",productType);
+
+        return "productType";
+
     }
 
 }
