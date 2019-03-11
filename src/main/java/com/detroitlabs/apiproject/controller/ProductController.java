@@ -40,19 +40,40 @@ public class ProductController {
         return "index";
     }
 
+
+
     @RequestMapping("/products")
     public String displayBrands(ModelMap modelMap){
         MakeupRepo makeupRepo = makeupService.fetchAllMakupAPI();
 
-        List<MakeupProduct> productType = new ArrayList<>();
+        List<String> productType = new ArrayList<>();
         for(MakeupProduct product: makeupRepo){
-            if(!productType.contains(product.getBrand()))
-            productType.add(product);
+            productType.add(product.getProduct_type());
         }
-        modelMap.put("productType",productType);
+        HashSet<String> makeupProductSet = new HashSet<>(productType);
+        ArrayList<String> makeupProductsNoDupilicates = new ArrayList<>(makeupProductSet);
+
+        modelMap.put("productType",makeupProductsNoDupilicates);
 
         return "productType";
 
     }
+
+//    @RequestMapping("/description/{productName}")
+//    public String displayDescriptin(@PathVariable String productName, ModelMap modelMap){
+//        MakeupRepo makeupRepo = makeupService.fetchAllMakupAPI();
+//
+//        ArrayList<MakeupProduct> productWithDescription = new ArrayList<>();
+//        for (MakeupProduct makeupProduct: makeupRepo){
+//            if(productName.equalsIgnoreCase(makeupProduct.getName())){
+//                productWithDescription.add(makeupProduct);
+//            }
+//        }
+//        modelMap.put("productDescription",productWithDescription);
+//
+//        return "description";
+//
+//    }
+
 
 }

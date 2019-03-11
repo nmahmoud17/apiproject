@@ -82,9 +82,7 @@
     <h2>Products</h2>
     <div>
         <div th:each="product : ${productType}">
-            <h3>
-                <a th:href="@{${product.getName()}}" th:text="@{${product.getProduct_type()}}"></a>
-            </h3>
+            <h3 th:text="@{${product}}"></h3>
         </div>
 
 

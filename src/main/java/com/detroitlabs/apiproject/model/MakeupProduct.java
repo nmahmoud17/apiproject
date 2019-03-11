@@ -83,5 +83,20 @@ public class MakeupProduct{
         this.product_type = product_type;
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if (obj == this){
+            return true;
+        }
+
+        if (!(obj instanceof MakeupProduct)) {
+            return false;
+        }
+
+        MakeupProduct makeupProduct = (MakeupProduct) obj;
+
+        return makeupProduct.product_type.equalsIgnoreCase(this.product_type);
+    }
+
 
 }
